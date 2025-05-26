@@ -134,10 +134,10 @@ public final class BetonQuestQT extends JavaPlugin {
     }
 
     public String getTranslation(String part, Player player) {
-        String lang = "en-US";
+        String lang = "fr-FR";
 
         try {
-            lang = BetonQuest.getInstance().getConfig().getString("language", "en-US");
+            lang = BetonQuest.getInstance().getConfig().getString("language", "fr-FR");
         } catch (Exception ignored) {}
 
         String path = "menuTranslations." + part + "." + lang;

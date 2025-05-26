@@ -67,13 +67,14 @@ public class QuestPlaceholder {
                 .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
 
         List<Component> loreComponents = new ArrayList<>();
-
-        for(String line : lore.split("\n")){
-            loreComponents.add(Component
-                    .text(formatLineWithVariables(line))
-                    .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
-                    .color(TextColor.color(Integer.parseInt("757575" , 16)))
-            );
+        if (lore != null) {
+            for (String line : lore.split("\n")) {
+                loreComponents.add(Component
+                        .text(formatLineWithVariables(line))
+                        .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)
+                        .color(TextColor.color(Integer.parseInt("757575", 16)))
+                );
+            }
         }
 
         status = packageStatusesMap.getOrDefault(player, new HashMap<>() {{
@@ -120,6 +121,7 @@ public class QuestPlaceholder {
     }
 
     public String formatLineWithVariables(String line) throws QuestException {
+        if (line == null || line.isEmpty()) return "";
         StringBuilder formattedString = new StringBuilder();
         StringBuilder preFormatVariable = new StringBuilder();
         StringBuilder preFormatGlobalVariable = new StringBuilder();

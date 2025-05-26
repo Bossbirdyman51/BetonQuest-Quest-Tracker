@@ -13,6 +13,7 @@ import org.betonquest.betonquest.database.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import net.kyori.adventure.text.Component;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -130,17 +131,29 @@ public class QuestMenu extends MultiPageInventoryGUI {
             if(!playerTags.contains(questPackage + ".questTrackable")){return;}
 
 
+            String lang = "fr-FR";
+            try {
+                lang = BetonQuest.getInstance().getConfig().getString("language", "fr-FR");
+            } catch (Exception ignored) {}
+
+            ConfigurationSection params = questPackage.getConfig().getConfigurationSection("questParameters");
+
+            String questName = params.getConfigurationSection("questName") != null
+                    ? params.getConfigurationSection("questName").getString(lang)
+                    : params.getString("questName");
+
+            String questDesc = params.getConfigurationSection("questDesc") != null
+                    ? params.getConfigurationSection("questDesc").getString(lang)
+                    : params.getString("questDesc");
+
             QuestPlaceholder questPlaceholder = new QuestPlaceholder(
-                    new ItemStack(Material.matchMaterial(questPackage.getConfig().getString("questParameters.questDisplay"))),
-                    !questPackage.getConfig().getConfigurationSection("questParameters.questName").getKeys(false).isEmpty()
-                            ? questPackage.getConfig().getConfigurationSection("questParameters.questName").getString(BetonQuest.getInstance().getPlayerDataStorage().get(profile).getLanguage().get())
-                            : questPackage.getConfig().getConfigurationSection("questParameters").getString("questName"),
-                    !questPackage.getConfig().getConfigurationSection("questParameters.questDesc").getKeys(false).isEmpty()
-                            ? questPackage.getConfig().getConfigurationSection("questParameters.questDesc").getString(BetonQuest.getInstance().getPlayerDataStorage().get(profile).getLanguage().get())
-                            : questPackage.getConfig().getConfigurationSection("questParameters").getString("questDesc"),
+                    new ItemStack(Material.matchMaterial(params.getString("questDisplay", "CHEST"))),
+                    questName,
+                    questDesc,
                     player,
                     questPackage
             );
+
 
 
             this.addButton(currentSlot[0], currentPage[0], new InventoryButton()
