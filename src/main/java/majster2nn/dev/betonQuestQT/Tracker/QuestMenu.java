@@ -146,8 +146,20 @@ public class QuestMenu extends MultiPageInventoryGUI {
                     ? params.getConfigurationSection("questDesc").getString(lang)
                     : params.getString("questDesc");
 
+            QuestPlaceholder.Statuses status = QuestPlaceholder.packageStatusesMap
+                    .getOrDefault(player, new HashMap<>())
+                    .getOrDefault(questPackage, QuestPlaceholder.Statuses.LOCKED);
+
+            boolean isCompleted = status == QuestPlaceholder.Statuses.FINISHED;
+
+            Material iconMaterial = Material.matchMaterial(
+                    isCompleted
+                            ? params.getString("questDisplayDone", "CHEST")
+                            : params.getString("questDisplay", "STONE")
+            );
+
             QuestPlaceholder questPlaceholder = new QuestPlaceholder(
-                    new ItemStack(Material.matchMaterial(params.getString("questDisplay", "CHEST"))),
+                    new ItemStack(iconMaterial),
                     questName,
                     questDesc,
                     player,
