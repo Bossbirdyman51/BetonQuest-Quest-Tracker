@@ -16,9 +16,9 @@ public class CommandHandler implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(command.getName().equalsIgnoreCase("questmenu")){
+        if(command.getName().equalsIgnoreCase("quetes")){
             if (!(sender instanceof Player)) {
-                sender.sendMessage("Only players can use this command!");
+                sender.sendMessage("Seul les joueurs peuvent le faire !");
                 return true;
             }
 

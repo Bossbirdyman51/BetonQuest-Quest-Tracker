@@ -60,7 +60,7 @@ public final class BetonQuestQT extends JavaPlugin {
 
         CommandHandler commandHandler = new CommandHandler(this);
 
-        getCommand("QuestMenu").setExecutor(commandHandler);
+        getCommand("quetes").setExecutor(commandHandler);
         getCommand("Reload").setExecutor(commandHandler);
 
         setup();

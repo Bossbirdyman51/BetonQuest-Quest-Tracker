@@ -7,7 +7,7 @@ depend:
   - BetonQuest
 
 commands:
-  QuestMenu:
+  quetes:
     description: ""
   Reload:
     description: "Reloads plugin"
